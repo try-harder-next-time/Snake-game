@@ -400,6 +400,17 @@ document.getElementById("sideTooHard").onclick=()=>setDifficulty("TOO HARD");
 
 /* Controls */
 document.addEventListener("keydown",e=>{
+    /* ✅ ONLY CHANGE: stop browser from stealing Arrow/Space */
+    if(
+        e.code==="Space" ||
+        e.key==="ArrowUp" ||
+        e.key==="ArrowDown" ||
+        e.key==="ArrowLeft" ||
+        e.key==="ArrowRight"
+    ){
+        e.preventDefault();
+    }
+
     if(e.code==="Space"&&hasStarted&&!isGameOver){
         isPaused=!isPaused;
         return;
@@ -419,7 +430,7 @@ document.addEventListener("keydown",e=>{
         case"r":case"R":
             init();break;
     }
-});
+},{passive:false}); /* ✅ needed so preventDefault works */
 
 init();
 </script>
